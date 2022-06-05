@@ -2,16 +2,21 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const connDB = require('./config/database');
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 3000;
 // set body parser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+
+app.get('/', (req, res)=> {
+    return res.send("api alceoone");
+});
+
 // create data / insert data
-app.post('/api/bootcamp', (req, res) => {
+app.post('/api/product', (req, res) => {
     // buat variabel penampung data dan query sql
     const data = { ...req.body };
-    const querySql = 'INSERT INTO bootcamp SET ?';
+    const querySql = 'INSERT INTO tbl_product SET ?';
 
     // jalankan query
     connDB.query(querySql, data, (err, rows, field) => {
@@ -26,9 +31,9 @@ app.post('/api/bootcamp', (req, res) => {
 });
 
 // read data / get data
-app.get('/api/bootcamp', (req, res) => {
+app.get('/api/product', (req, res) => {
     // buat query sql
-    const querySql = 'SELECT * FROM bootcamp';
+    const querySql = 'SELECT * FROM tbl_product';
 
     // jalankan query
     connDB.query(querySql, (err, rows, field) => {
@@ -46,8 +51,8 @@ app.get('/api/bootcamp', (req, res) => {
 app.put('/api/bootcamp/:id', (req, res) => {
     // buat variabel penampung data dan query sql
     const data = { ...req.body };
-    const querySearch = 'SELECT * FROM bootcamp WHERE id = ?';
-    const queryUpdate = 'UPDATE bootcamp SET ? WHERE id = ?';
+    const querySearch = 'SELECT * FROM tbl_product WHERE id = ?';
+    const queryUpdate = 'UPDATE tbl_product SET ? WHERE id = ?';
 
     // jalankan query untuk melakukan pencarian data
     connDB.query(querySearch, req.params.id, (err, rows, field) => {
@@ -77,8 +82,8 @@ app.put('/api/bootcamp/:id', (req, res) => {
 // delete data
 app.delete('/api/bootcamp/:id', (req, res) => {
     // buat query sql untuk mencari data dan hapus
-    const querySearch = 'SELECT * FROM bootcamp WHERE id = ?';
-    const queryDelete = 'DELETE FROM bootcamp WHERE id = ?';
+    const querySearch = 'SELECT * FROM tbl_product WHERE id = ?';
+    const queryDelete = 'DELETE FROM tbl_product WHERE id = ?';
 
     // jalankan query untuk melakukan pencarian data
     connDB.query(querySearch, req.params.id, (err, rows, field) => {

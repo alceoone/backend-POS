@@ -1,10 +1,10 @@
 const mysql = require('mysql');
 // buat konfigurasi connDB
 const connDB = mysql.createConnection({
-    host: 'host_kalian',
-    user: 'username_kalian',
-    password: 'password_kalian',
-    database: 'nama_database',
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'kasir_alceoone',
     multipleStatements: true
 });
 // connDB database
